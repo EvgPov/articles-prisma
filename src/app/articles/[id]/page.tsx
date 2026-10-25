@@ -6,7 +6,7 @@ import BackButton from "@/components/BackButton";
 import ArticleAuthor from "@/components/ArticleAuthor"
 import ArticleComments from "@/components/ArticleComments"
 
-import { getArticleById } from "@/lib/articles";
+import { getArticleById, getArticles } from "@/lib/articles";
 
 
 export async function generateMetadata({ params }: PageProps<'/articles/[id]'>): Promise<Metadata> {
@@ -19,6 +19,15 @@ export async function generateMetadata({ params }: PageProps<'/articles/[id]'>):
     title: article.title,
     description: article.body.slice(0, 160)
   }
+}
+
+export async function generateStaticParams() {
+  const articles = await getArticles();
+
+  return articles.map((article) => ({
+    id: String(article.id)
+  }));
+  
 }
 
 export default async function ArticlePage({ params }: PageProps<'/articles/[id]'>) {
