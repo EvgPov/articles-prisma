@@ -1,0 +1,31 @@
+DROP TABLE IF EXISTS comments;
+DROP TABLE IF EXISTS articles;
+DROP TABLE IF EXISTS users;
+
+CREATE TABLE users (
+  id INTEGER PRIMARY KEY,
+  username TEXT NOT NULL,
+  first_name TEXT NOT NULL,
+  last_name TEXT NOT NULL
+);
+
+CREATE TABLE articles (
+  id INTEGER PRIMARY KEY,
+  title TEXT NOT NULL,
+  body TEXT NOT NULL,
+  tags TEXT[] NOT NULL DEFAULT '{}',
+  likes INTEGER NOT NULL DEFAULT 0,
+  dislikes INTEGER NOT NULL DEFAULT 0,
+  views INTEGER NOT NULL DEFAULT 0,
+  user_id INTEGER NOT NULL REFERENCES users (id)
+);
+
+CREATE TABLE comments (
+  id INTEGER PRIMARY KEY,
+  body TEXT NOT NULL,
+  likes INTEGER NOT NULL DEFAULT 0,
+  post_id INTEGER NOT NULL REFERENCES articles (id) ON DELETE CASCADE,
+  user_id INTEGER NOT NULL REFERENCES users (id)
+);
+
+CREATE INDEX comments_post_id_idx ON comments (post_id);

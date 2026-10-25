@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start -p 3001",
     "lint": "eslint",
-    "dev:demo": "DEMO_DELAY=1 next dev -p 3001"
+    "dev:demo": "DEMO_DELAY=1 next dev -p 3001",
+    "db:schema": "psql pr01_articles -f db/schema.sql"
   },
   "dependencies": {
     "next": "^16.4.3",
