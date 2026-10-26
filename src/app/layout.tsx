@@ -41,9 +41,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
 
         <footer className={styles.footer}>
           Источник данных:{' '}
-          <a href="https://dummyjson.com" target="_blank" rel="noopener noreferrer">
-            DummyJSON API
-          </a>
+          <p>PostgreSQL (SQL)</p>
         </footer>
       </body>
     </html>
