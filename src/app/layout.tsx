@@ -40,8 +40,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <main className={styles.main}>{children}</main>
 
         <footer className={styles.footer}>
-          Источник данных:{' '}
-          <p>PostgreSQL (SQL)</p>
+          Источник данных: PostgreSQL (Prisma)
         </footer>
       </body>
     </html>

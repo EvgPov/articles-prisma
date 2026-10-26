@@ -1,6 +1,6 @@
 import { cacheLife } from "next/cache";
 
-import { pool } from '@/lib/db';
+import { prisma } from '@/lib/prisma'
 import { demoDelay } from "@/lib/demoDelay";
 
 import type { User } from "@/types/user";
@@ -11,19 +11,18 @@ export async function getUserById(userId: number): Promise<User | null> {
   await demoDelay(2000);
 
   try {
-    const { rows } = await pool.query<User>(`
-    SELECT id, first_name AS "firstName", last_name AS "lastName"
-    FROM users
-    WHERE id = $1
-  `, [userId]);
+    const user = await prisma.user.findUnique({
+        select: { id: true, firstName: true, lastName: true },
+        where: { id: userId }
+      });
     
-    if (rows.length === 0) {
+    if (!user) {
       cacheLife('minutes');
       return null
     }
   
     cacheLife('weeks')
-    return rows[0]
+    return user
   } catch(error) {
     console.error('Failed to load user:', error);
     cacheLife('minutes');

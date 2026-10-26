@@ -1,32 +1,31 @@
 import { cacheLife } from "next/cache";
 
-import { pool } from '@/lib/db';
-import { demoDelay } from "@/lib/demoDelay";
+import type { Article as ArticleRow } from "@/generated/prisma/client";
+import type { Article } from '@/types/article'
 
-import type { Article } from "@/types/article";
+import { demoDelay } from "@/lib/demoDelay";
+import { prisma } from '@/lib/prisma'
+
 import type { ArticleComment } from "@/types/comment";
 
 const MAX_INTEGER = 2_147_483_647;
 
-const ARTICLE_COLUMNS = `
-  id, title, body, tags, views,
-  user_id AS "userId",
-  json_build_object('likes', likes, 'dislikes', dislikes) AS reactions
-`;
+function toArticle({ likes, dislikes, ...rest }: ArticleRow): Article {
+  return { ...rest, reactions: { likes, dislikes } };
+}
 
 export async function getArticles(): Promise<Article[]> {
   'use cache'
   cacheLife('hours')
 
   await demoDelay(2000);
-  const { rows } = await pool.query<Article>(`
-    SELECT ${ARTICLE_COLUMNS}
-    FROM articles
-    ORDER BY id
-    LIMIT 15
-  `);
 
-  return rows;
+  const rows = await prisma.article.findMany({
+    orderBy: { id: 'asc' },
+    take: 15,
+  });
+
+  return rows.map(toArticle);
 }
 
 export async function getArticleById(id: string): Promise<Article | null> {
@@ -41,19 +40,17 @@ export async function getArticleById(id: string): Promise<Article | null> {
 
   await demoDelay(2000);
 
-  const { rows } = await pool.query<Article>(`
-  SELECT ${ARTICLE_COLUMNS}
-  FROM articles
-  WHERE id = $1
-`, [articleId]);
-  
-  if (rows.length === 0) {
+  const article = await prisma.article.findUnique({
+    where: { id: articleId } 
+  });
+
+  if (!article) {
     cacheLife('minutes');
     return null
   }
 
   cacheLife('days')
-  return rows[0];
+  return toArticle(article);
 }
 
 export async function getArticleComments(postId: number): Promise<ArticleComment[] | null> {
@@ -63,20 +60,24 @@ export async function getArticleComments(postId: number): Promise<ArticleComment
   await demoDelay(3000);
 
   try {
-    const { rows } = await pool.query<ArticleComment>(`
-    SELECT c.id, c.body, c.likes,
-      json_build_object(
-      'id', u.id,
-      'username', u.username,
-      'fullName', u.first_name || ' ' || u.last_name
-    ) AS "user"
-    FROM comments c
-    JOIN users u ON u.id = c.user_id
-    WHERE c.post_id = $1
-    ORDER BY c.id
-    `, [postId]);
+    const comments = await prisma.comment.findMany({
+      where: { postId: postId },
+      orderBy: { id: 'asc' },
+      select: {  id: true, body: true, likes: true,
+        user: {
+          select: { id: true, username: true, firstName: true, lastName: true },
+        },
+      },    
+    });
 
-    return rows
+    return comments.map(( { user, ...comment }) => ({
+      ... comment,
+      user: {
+        id: user.id,
+        username: user.username,
+        fullName: `${user.firstName} ${user.lastName}`
+      },
+    }));
   } catch(error) {
     console.error('Failed to load comments:', error);
     return null

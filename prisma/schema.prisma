@@ -1,0 +1,47 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Article {
+  id       Int       @id
+  title    String
+  body     String
+  tags     String[]  @default([])
+  likes    Int       @default(0)
+  dislikes Int       @default(0)
+  views    Int       @default(0)
+  userId   Int       @map("user_id")
+  user     User      @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  comments Comment[]
+
+  @@map("articles")
+}
+
+model Comment {
+  id      Int     @id
+  body    String
+  likes   Int     @default(0)
+  postId  Int     @map("post_id")
+  userId  Int     @map("user_id")
+  article Article @relation(fields: [postId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  user    User    @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@index([postId])
+  @@map("comments")
+}
+
+model User {
+  id        Int       @id
+  username  String
+  firstName String    @map("first_name")
+  lastName  String    @map("last_name")
+  articles  Article[]
+  comments  Comment[]
+
+  @@map("users")
+}
