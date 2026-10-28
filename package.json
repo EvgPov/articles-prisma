@@ -8,7 +8,7 @@
     "start": "next start -p 3002",
     "lint": "eslint",
     "dev:demo": "DEMO_DELAY=1 next dev -p 3002",
-    "db:schema": "psql pr01_articles -f db/schema.sql",
+    "db:migrate": "prisma migrate deploy",
     "db:seed": "node --env-file=.env.local db/seed.mts",
     "postinstall": "prisma generate"
   },
