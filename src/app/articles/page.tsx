@@ -6,7 +6,7 @@ import type { Metadata } from "next";
 
 import { getArticles } from "@/lib/articles";
 
-export const metaData: Metadata = {
+export const metadata: Metadata = {
   title: 'Список статей',
   description: 'Все статьи агрегатора: выберите заголовок, чтобы прочитать статью целиком.',
 }
