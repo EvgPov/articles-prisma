@@ -4,7 +4,7 @@ import type { Article as ArticleRow } from "@/generated/prisma/client";
 import type { Article } from '@/types/article'
 
 import { demoDelay } from "@/lib/demoDelay";
-import { prisma } from '@/lib/prisma'
+import { getPrisma } from "./prisma";
 
 import type { ArticleComment } from "@/types/comment";
 
@@ -20,7 +20,7 @@ export async function getArticles(): Promise<Article[]> {
 
   await demoDelay(2000);
 
-  const rows = await prisma.article.findMany({
+  const rows = await getPrisma().article.findMany({
     orderBy: { id: 'asc' },
     take: 15,
   });
@@ -40,7 +40,7 @@ export async function getArticleById(id: string): Promise<Article | null> {
 
   await demoDelay(2000);
 
-  const article = await prisma.article.findUnique({
+  const article = await getPrisma().article.findUnique({
     where: { id: articleId } 
   });
 
@@ -60,7 +60,7 @@ export async function getArticleComments(postId: number): Promise<ArticleComment
   await demoDelay(3000);
 
   try {
-    const comments = await prisma.comment.findMany({
+    const comments = await getPrisma().comment.findMany({
       where: { postId: postId },
       orderBy: { id: 'asc' },
       select: {  id: true, body: true, likes: true,

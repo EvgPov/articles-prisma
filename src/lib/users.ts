@@ -1,6 +1,6 @@
 import { cacheLife } from "next/cache";
 
-import { prisma } from '@/lib/prisma'
+import { getPrisma } from '@/lib/prisma'
 import { demoDelay } from "@/lib/demoDelay";
 
 import type { User } from "@/types/user";
@@ -11,7 +11,7 @@ export async function getUserById(userId: number): Promise<User | null> {
   await demoDelay(2000);
 
   try {
-    const user = await prisma.user.findUnique({
+    const user = await getPrisma().user.findUnique({
         select: { id: true, firstName: true, lastName: true },
         where: { id: userId }
       });
