@@ -1,3 +1,5 @@
+import { connection } from "next/server";
+
 import ArticlesList from "@/components/ArticlesList";
 
 import type { Metadata } from "next";
@@ -10,6 +12,7 @@ export const metaData: Metadata = {
 }
 
 export default async function ArticlesPage() {
+  await connection()
   const posts = await getArticles();
 
   return (
