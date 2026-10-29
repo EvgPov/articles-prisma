@@ -1,0 +1,14 @@
+node_modules
+
+.git
+
+.next
+
+src/generated
+
+.vscode/
+
+.env*
+
+.DS_Store
+._*
