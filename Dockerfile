@@ -10,6 +10,24 @@ COPY prisma ./prisma
 
 RUN npm ci
 
+FROM node:24-trixie-slim AS migrate
+
+WORKDIR /app
+
+COPY --from=deps /app/node_modules ./node_modules
+
+COPY package.json ./
+
+COPY prisma7.config.ts ./
+
+COPY prisma ./prisma
+
+COPY db ./db
+
+USER node
+
+CMD ["./node_modules/.bin/prisma", "migrate", "deploy"]
+
 FROM node:24-trixie-slim AS builder
 
 WORKDIR /app
