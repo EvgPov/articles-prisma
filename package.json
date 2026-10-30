@@ -10,7 +10,8 @@
     "dev:demo": "DEMO_DELAY=1 next dev -p 3002",
     "db:migrate": "prisma migrate deploy",
     "db:seed": "node --env-file=.env.local db/seed.mts",
-    "postinstall": "prisma generate"
+    "postinstall": "prisma generate",
+    "typecheck": "next typegen && tsc --noEmit"
   },
   "dependencies": {
     "@prisma/adapter-pg": "^7.10.1",
@@ -22,7 +23,7 @@
     "zod": "^4.6.7"
   },
   "devDependencies": {
-    "@types/node": "^20",
+    "@types/node": "^24.19.2",
     "@types/pg": "^8.23.1",
     "@types/react": "^19",
     "@types/react-dom": "^19",
@@ -31,5 +32,8 @@
     "eslint-config-next": "^16.4.3",
     "prisma": "^7.10.1",
     "typescript": "^5"
+  },
+  "engines": {
+    "node": ">=24 <25"
   }
 }
