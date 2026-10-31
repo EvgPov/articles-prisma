@@ -1,18 +1,12 @@
 import { cacheLife } from "next/cache";
 
-import type { Article as ArticleRow } from "@/generated/prisma/client";
-import type { Article } from '@/types/article'
-
-import { demoDelay } from "@/lib/demoDelay";
-import { getPrisma } from "./prisma";
-
+import type { Article } from '@/types/article';
 import type { ArticleComment } from "@/types/comment";
 
-const MAX_INTEGER = 2_147_483_647;
+import { demoDelay } from "@/lib/demoDelay";
+import { toArticle, toArticleComment, parseArticleId } from "@/lib/article-mappers";
 
-function toArticle({ likes, dislikes, ...rest }: ArticleRow): Article {
-  return { ...rest, reactions: { likes, dislikes } };
-}
+import { getPrisma } from "./prisma";
 
 export async function getArticles(): Promise<Article[]> {
   'use cache'
@@ -31,17 +25,17 @@ export async function getArticles(): Promise<Article[]> {
 export async function getArticleById(id: string): Promise<Article | null> {
   'use cache'
 
-  if (!/^\d+$/.test(id) || Number(id) > MAX_INTEGER) {
-    cacheLife('minutes');
-    return null
-  }  
+  const articleId = parseArticleId(id);
 
-  const articleId = Number(id);
+  if (articleId === null) {
+    cacheLife('minutes');
+    return null;
+  }
 
   await demoDelay(2000);
 
   const article = await getPrisma().article.findUnique({
-    where: { id: articleId } 
+    where: { id: articleId }
   });
 
   if (!article) {
@@ -67,19 +61,12 @@ export async function getArticleComments(postId: number): Promise<ArticleComment
         user: {
           select: { id: true, username: true, firstName: true, lastName: true },
         },
-      },    
+      },
     });
 
-    return comments.map(( { user, ...comment }) => ({
-      ... comment,
-      user: {
-        id: user.id,
-        username: user.username,
-        fullName: `${user.firstName} ${user.lastName}`
-      },
-    }));
+    return comments.map(toArticleComment);
   } catch(error) {
     console.error('Failed to load comments:', error);
     return null
-  }  
+  }
 }
