@@ -8,6 +8,6 @@ export default defineConfig({
   test: {
     include: ["tests/**/*.test.ts"],
     environment: "node",
-    reporters: ["verbose", "tree"],
+    reporters: ["tree"],
   },
 });
