@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 
-import ArticleLoadingText from '@/components/ArticleLoadingText'
+import ArticleLoadingText from "@/components/ArticleLoadingText";
 
 export default async function Loading() {
   return (
@@ -9,5 +9,5 @@ export default async function Loading() {
         <ArticleLoadingText />
       </Suspense>
     </p>
-  ) 
+  );
 }

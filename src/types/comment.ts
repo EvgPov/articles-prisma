@@ -7,4 +7,4 @@ export type ArticleComment = {
     username: string;
     fullName: string;
   };
-}
+};

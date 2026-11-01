@@ -1,10 +1,12 @@
 import { getArticleComments } from "@/lib/articles";
 
-export default async function ArticleComments({postId}: {postId: number}) {
+export default async function ArticleComments({ postId }: { postId: number }) {
   const comments = await getArticleComments(postId);
 
-  if (!comments) return <p className="muted">Не удалось загрузить комментарии</p>;
-  if (comments.length === 0) return <p className="muted">Комментариев пока нет</p>;
+  if (!comments)
+    return <p className="muted">Не удалось загрузить комментарии</p>;
+  if (comments.length === 0)
+    return <p className="muted">Комментариев пока нет</p>;
 
   return (
     <section>
@@ -17,5 +19,5 @@ export default async function ArticleComments({postId}: {postId: number}) {
         ))}
       </ul>
     </section>
-  )
+  );
 }

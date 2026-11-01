@@ -1,31 +1,30 @@
 import { cacheLife } from "next/cache";
-
-import { getPrisma } from '@/lib/prisma'
 import { demoDelay } from "@/lib/demoDelay";
+import { getPrisma } from "@/lib/prisma";
 
 import type { User } from "@/types/user";
 
 export async function getUserById(userId: number): Promise<User | null> {
-  'use cache'
-  
+  "use cache";
+
   await demoDelay(2000);
 
   try {
     const user = await getPrisma().user.findUnique({
-        select: { id: true, firstName: true, lastName: true },
-        where: { id: userId }
-      });
-    
+      select: { id: true, firstName: true, lastName: true },
+      where: { id: userId },
+    });
+
     if (!user) {
-      cacheLife('minutes');
-      return null
+      cacheLife("minutes");
+      return null;
     }
-  
-    cacheLife('weeks')
-    return user
-  } catch(error) {
-    console.error('Failed to load user:', error);
-    cacheLife('minutes');
-    return null
-  }  
+
+    cacheLife("weeks");
+    return user;
+  } catch (error) {
+    console.error("Failed to load user:", error);
+    cacheLife("minutes");
+    return null;
+  }
 }

@@ -1,7 +1,6 @@
 import Link from "next/link";
-import styles from './ArticlesList.module.css'
-
 import type { Article } from "@/types/article";
+import styles from "./ArticlesList.module.css";
 
 export default function ArticlesList({ posts }: { posts: Article[] }) {
   return (
@@ -12,5 +11,5 @@ export default function ArticlesList({ posts }: { posts: Article[] }) {
         </li>
       ))}
     </ul>
-  )  
-}    
+  );
+}

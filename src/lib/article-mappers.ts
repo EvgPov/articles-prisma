@@ -11,8 +11,8 @@ type CommentRow = {
     username: string;
     firstName: string;
     lastName: string;
-  }
-}
+  };
+};
 
 export const MAX_INTEGER = 2_147_483_647;
 
@@ -27,13 +27,16 @@ export function toArticle({ likes, dislikes, ...rest }: ArticleRow): Article {
   return { ...rest, reactions: { likes, dislikes } };
 }
 
-export function toArticleComment({user, ...comment}: CommentRow): ArticleComment {
+export function toArticleComment({
+  user,
+  ...comment
+}: CommentRow): ArticleComment {
   return {
     ...comment,
     user: {
       id: user.id,
       username: user.username,
-      fullName: `${user.firstName} ${user.lastName}`
+      fullName: `${user.firstName} ${user.lastName}`,
     },
-  }
+  };
 }

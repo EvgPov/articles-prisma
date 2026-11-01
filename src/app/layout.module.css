@@ -5,7 +5,9 @@
   border-width: 0;
   padding: 16px;
 }
-.header { border-bottom-width: 1px; }
+.header {
+  border-bottom-width: 1px;
+}
 .footer {
   border-top-width: 1px;
   color: var(--muted);

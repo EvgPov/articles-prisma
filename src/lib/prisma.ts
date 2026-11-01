@@ -1,12 +1,11 @@
-import 'server-only';
-import { PrismaPg } from '@prisma/adapter-pg';
+import "server-only";
+import { PrismaPg } from "@prisma/adapter-pg";
 
-import { PrismaClient } from '@/generated/prisma/client';
+import { PrismaClient } from "@/generated/prisma/client";
 
-import { getConfig } from './env';
+import { getConfig } from "./env";
 
 const globalForPrisma = globalThis as unknown as { prisma?: PrismaClient };
-
 
 export function getPrisma(): PrismaClient {
   const prisma =
@@ -17,5 +16,5 @@ export function getPrisma(): PrismaClient {
 
   globalForPrisma.prisma = prisma;
 
-  return prisma
+  return prisma;
 }
