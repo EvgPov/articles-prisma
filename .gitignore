@@ -41,4 +41,10 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# prisma client
 /src/generated/prisma
+
+# editor
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
