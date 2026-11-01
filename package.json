@@ -12,7 +12,8 @@
     "db:seed": "node --env-file=.env.local db/seed.mts",
     "postinstall": "prisma generate",
     "typecheck": "next typegen && tsc --noEmit",
-    "test": "vitest run"
+    "test": "vitest run",
+    "format": "biome check --write"
   },
   "dependencies": {
     "@prisma/adapter-pg": "^7.10.1",
@@ -24,6 +25,7 @@
     "zod": "^4.6.7"
   },
   "devDependencies": {
+    "@biomejs/biome": "2.6.4",
     "@types/node": "^24.19.2",
     "@types/pg": "^8.23.1",
     "@types/react": "^19",
