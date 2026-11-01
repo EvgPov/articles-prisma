@@ -44,13 +44,23 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Build and push Docker image
+      - name: Build and push app image
         uses: docker/build-push-action@v7
         with:
           context: .
           target: runner
           push: true
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          cache-from: type=gha,scope=runner
+          cache-to: type=gha,mode=max,scope=runner
           platforms: linux/arm64,linux/amd64
           tags: ghcr.io/evgpov/articles-prisma:latest
+      - name: Build and push migrate image
+        uses: docker/build-push-action@v7
+        with:
+          context: .
+          target: migrate
+          push: true
+          cache-from: type=gha,scope=migrate
+          cache-to: type=gha,mode=max,scope=migrate
+          platforms: linux/arm64,linux/amd64
+          tags: ghcr.io/evgpov/articles-prisma-migrate:latest
