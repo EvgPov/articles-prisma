@@ -1,5 +1,5 @@
 export type ArticleComment = {
-   id: number;
+  id: number;
   body: string;
   likes: number;
   user: {
