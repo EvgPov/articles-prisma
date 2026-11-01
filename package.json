@@ -6,7 +6,8 @@
     "dev": "next dev -p 3002",
     "build": "next build",
     "start": "next start -p 3002",
-    "lint": "eslint",
+    "lint": "biome check",
+    "lint:ci": "biome ci",
     "dev:demo": "DEMO_DELAY=1 next dev -p 3002",
     "db:migrate": "prisma migrate deploy",
     "db:seed": "node --env-file=.env.local db/seed.mts",
@@ -31,8 +32,6 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "dotenv": "^18.0.9",
-    "eslint": "^9",
-    "eslint-config-next": "^16.4.3",
     "prisma": "^7.10.1",
     "typescript": "^5",
     "vitest": "^5.0.5"
