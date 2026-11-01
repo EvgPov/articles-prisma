@@ -6,7 +6,7 @@ export default function BackButton() {
   const router = useRouter();
 
   return (
-    <button className='button' onClick={() => router.push('/articles')}>
+    <button type="button" className='button' onClick={() => router.push('/articles')}>
       ← Назад к списку
     </button>
   )

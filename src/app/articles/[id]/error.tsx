@@ -16,7 +16,7 @@ export default function ArticleError({ error, retry }: ErrorProps) {
     <div>
       <h1>Не удалось загрузить статью</h1>
       <p className="muted">Попробуйте ещё раз через несколько секунд.</p>
-      <button className="button" onClick={() => retry()}>
+      <button type="button" className="button" onClick={() => retry()}>
         Попробовать снова
       </button>
     </div>
