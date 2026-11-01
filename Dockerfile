@@ -52,6 +52,10 @@ COPY --from=builder /app/.next/static ./.next/static
 
 COPY --from=builder /app/public ./public
 
+ARG APP_VERSION=dev
+
+ENV APP_VERSION=$APP_VERSION
+
 USER node
 
 EXPOSE 3002
