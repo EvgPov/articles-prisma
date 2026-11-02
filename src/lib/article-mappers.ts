@@ -40,3 +40,23 @@ export function toArticleComment({
     },
   };
 }
+
+export function articleExcerpt(
+  { summary, body }: Pick<Article, "summary" | "body">,
+  maxLength = 160,
+): string {
+  const summaryTrim = summary?.trim();
+  if (summaryTrim) return summaryTrim;
+
+  const bodyTrim = body.trim();
+  if (bodyTrim.length <= maxLength) return bodyTrim;
+
+  let normalShortBody = bodyTrim.slice(0, maxLength);
+
+  const space = normalShortBody.lastIndexOf(" ");
+  if (space !== -1) {
+    normalShortBody = normalShortBody.slice(0, space);
+  }
+
+  return `${normalShortBody}…`;
+}

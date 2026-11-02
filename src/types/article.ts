@@ -11,4 +11,5 @@ export interface Article {
   reactions: Reaction;
   views: number;
   userId: number;
+  summary: string | null;
 }

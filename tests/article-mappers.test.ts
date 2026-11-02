@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
+  articleExcerpt,
   MAX_INTEGER,
   parseArticleId,
   toArticle,
@@ -90,5 +91,36 @@ describe("toArticleComment", () => {
         fullName: "Emily Johnson",
       },
     });
+  });
+});
+
+describe("articleExcerpt", () => {
+  it("returns trimmed summary when it is set", () => {
+    expect(
+      articleExcerpt({ summary: "  Short summary  ", body: "Any body" }),
+    ).toBe("Short summary");
+  });
+  it("returns short body when summary is null", () => {
+    expect(articleExcerpt({ summary: null, body: "    Short body" })).toBe(
+      "Short body",
+    );
+  });
+  it("treats whitespace-only summary as missing", () => {
+    expect(
+      articleExcerpt({ summary: "     ", body: "Any body without summary" }),
+    ).toBe("Any body without summary");
+  });
+  it("cuts long body at the last space and adds an ellipsis", () => {
+    expect(
+      articleExcerpt(
+        { summary: null, body: "Long body without summary    " },
+        10,
+      ),
+    ).toBe("Long body…");
+  });
+  it("cuts a long word at maxLength", () => {
+    expect(
+      articleExcerpt({ summary: null, body: "LooooooongWoooooooord" }, 10),
+    ).toBe("Looooooong…");
   });
 });

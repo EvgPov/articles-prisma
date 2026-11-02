@@ -4,7 +4,7 @@ import { Suspense } from "react";
 import ArticleAuthor from "@/components/ArticleAuthor";
 import ArticleComments from "@/components/ArticleComments";
 import BackButton from "@/components/BackButton";
-
+import { articleExcerpt } from "@/lib/article-mappers";
 import { getArticleById } from "@/lib/articles";
 
 export async function generateMetadata({
@@ -17,7 +17,7 @@ export async function generateMetadata({
 
   return {
     title: article.title,
-    description: article.body.slice(0, 160),
+    description: articleExcerpt(article),
   };
 }
 
