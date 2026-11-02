@@ -16,6 +16,7 @@ model Article {
   dislikes Int       @default(0)
   views    Int       @default(0)
   userId   Int       @map("user_id")
+  summary  String?
   user     User      @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   comments Comment[]
 

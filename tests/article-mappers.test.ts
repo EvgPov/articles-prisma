@@ -49,6 +49,7 @@ describe("toArticle", () => {
       dislikes: 25,
       views: 305,
       userId: 121,
+      summary: "A story about pride",
     };
     expect(toArticle(articleRow)).toEqual({
       id: 1,
@@ -61,6 +62,7 @@ describe("toArticle", () => {
       },
       views: 305,
       userId: 121,
+      summary: "A story about pride",
     });
   });
 });
