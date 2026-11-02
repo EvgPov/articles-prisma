@@ -7,6 +7,18 @@
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-11-02
+
+### Added
+
+- Краткое описание статьи в списке `/articles`: поле `summary`, а если оно
+  пустое — начало текста, обрезанное по границе слова.
+- То же описание стало meta description страницы статьи
+  (раньше — первые 160 символов текста, обрезанные посреди слова).
+- Миграция `20261102141500_add_article_summary`: колонка `articles.summary`,
+  которая может быть пустой. Миграция совместима с версией 1.0.0,
+  откат на неё безопасен.
+
 ## [1.0.0] - 2026-11-01
 
 ### Added
@@ -44,5 +56,6 @@
 - `db/schema.sql`: схему создают миграции.
 - Неиспользуемые изображения из шаблона create-next-app.
 
-[Unreleased]: https://github.com/EvgPov/articles-prisma/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/EvgPov/articles-prisma/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/EvgPov/articles-prisma/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/EvgPov/articles-prisma/releases/tag/v1.0.0
