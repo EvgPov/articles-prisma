@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import Link from "next/link";
 
 import "./globals.css";
-import styles from "./layout.module.css";
 
 const mainFont = localFont({
   src: [
@@ -26,20 +24,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="ru" className={mainFont.variable}>
-      <body>
-        <header className={styles.header}>
-          <nav className={styles.nav}>
-            <Link href="/">Главная</Link>
-            <Link href="/articles">Статьи</Link>
-          </nav>
-        </header>
-
-        <main className={styles.main}>{children}</main>
-
-        <footer className={styles.footer}>
-          Источник данных: PostgreSQL (Prisma)
-        </footer>
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
