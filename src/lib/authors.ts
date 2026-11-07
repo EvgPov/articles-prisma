@@ -4,26 +4,26 @@ import { getPrisma } from "@/lib/prisma";
 
 import type { Author } from "@/types/author";
 
-export async function getAuthorById(userId: number): Promise<Author | null> {
+export async function getAuthorById(authorId: number): Promise<Author | null> {
   "use cache";
 
   await demoDelay(2000);
 
   try {
-    const user = await getPrisma().author.findUnique({
+    const author = await getPrisma().author.findUnique({
       select: { id: true, firstName: true, lastName: true },
-      where: { id: userId },
+      where: { id: authorId },
     });
 
-    if (!user) {
+    if (!author) {
       cacheLife("minutes");
       return null;
     }
 
     cacheLife("weeks");
-    return user;
+    return author;
   } catch (error) {
-    console.error("Failed to load user:", error);
+    console.error("Failed to load author:", error);
     cacheLife("minutes");
     return null;
   }
