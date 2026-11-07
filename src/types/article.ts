@@ -10,6 +10,6 @@ export interface Article {
   tags: string[];
   reactions: Reaction;
   views: number;
-  userId: number;
+  authorId: number;
   summary: string | null;
 }

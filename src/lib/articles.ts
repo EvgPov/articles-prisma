@@ -65,7 +65,7 @@ export async function getArticleComments(
         id: true,
         body: true,
         likes: true,
-        user: {
+        author: {
           select: { id: true, username: true, firstName: true, lastName: true },
         },
       },

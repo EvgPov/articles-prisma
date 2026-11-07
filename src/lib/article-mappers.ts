@@ -6,7 +6,7 @@ type CommentRow = {
   id: number;
   body: string;
   likes: number;
-  user: {
+  author: {
     id: number;
     username: string;
     firstName: string;
@@ -23,20 +23,25 @@ export function parseArticleId(id: string): number | null {
   return Number(id);
 }
 
-export function toArticle({ likes, dislikes, ...rest }: ArticleRow): Article {
+export function toArticle({
+  likes,
+  dislikes,
+  userId,
+  ...rest
+}: ArticleRow): Article {
   return { ...rest, reactions: { likes, dislikes } };
 }
 
 export function toArticleComment({
-  user,
+  author,
   ...comment
 }: CommentRow): ArticleComment {
   return {
     ...comment,
-    user: {
-      id: user.id,
-      username: user.username,
-      fullName: `${user.firstName} ${user.lastName}`,
+    author: {
+      id: author.id,
+      username: author.username,
+      fullName: `${author.firstName} ${author.lastName}`,
     },
   };
 }

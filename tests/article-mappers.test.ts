@@ -40,18 +40,19 @@ describe("parseArticleId", () => {
 });
 
 describe("toArticle", () => {
+  const articleRow = {
+    id: 1,
+    title: "His mother had always taught him",
+    body: "His mother had always taught him not to ever think of himself as better than others.",
+    tags: ["history", "american", "crime"],
+    likes: 192,
+    dislikes: 25,
+    views: 305,
+    userId: 121,
+    authorId: 121,
+    summary: "A story about pride",
+  };
   it("collects likes and dislikes in reactions object", () => {
-    const articleRow = {
-      id: 1,
-      title: "His mother had always taught him",
-      body: "His mother had always taught him not to ever think of himself as better than others.",
-      tags: ["history", "american", "crime"],
-      likes: 192,
-      dislikes: 25,
-      views: 305,
-      userId: 121,
-      summary: "A story about pride",
-    };
     expect(toArticle(articleRow)).toEqual({
       id: 1,
       title: "His mother had always taught him",
@@ -62,9 +63,12 @@ describe("toArticle", () => {
         dislikes: 25,
       },
       views: 305,
-      userId: 121,
+      authorId: 121,
       summary: "A story about pride",
     });
+  });
+  it("does not expose legacy userId", () => {
+    expect(toArticle(articleRow)).not.toHaveProperty("userId");
   });
 });
 
@@ -74,7 +78,7 @@ describe("toArticleComment", () => {
       id: 1,
       body: "This is some awesome thinking!",
       likes: 3,
-      user: {
+      author: {
         id: 105,
         username: "emilys",
         firstName: "Emily",
@@ -85,7 +89,7 @@ describe("toArticleComment", () => {
       id: 1,
       body: "This is some awesome thinking!",
       likes: 3,
-      user: {
+      author: {
         id: 105,
         username: "emilys",
         fullName: "Emily Johnson",

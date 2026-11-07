@@ -2,7 +2,7 @@ export type ArticleComment = {
   id: number;
   body: string;
   likes: number;
-  user: {
+  author: {
     id: number;
     username: string;
     fullName: string;

@@ -44,18 +44,23 @@ try {
   ]);
 
   await client.query("BEGIN");
-  await client.query("TRUNCATE comments, articles, users");
+  await client.query("TRUNCATE comments, articles, users, authors");
 
   for (const user of users) {
     await client.query(
       "INSERT INTO users (id, username, first_name, last_name) VALUES ($1, $2, $3, $4)",
       [user.id, user.username, user.firstName, user.lastName],
     );
+
+    await client.query(
+      "INSERT INTO authors (id, username, first_name, last_name) VALUES ($1, $2, $3, $4)",
+      [user.id, user.username, user.firstName, user.lastName],
+    );
   }
 
   for (const article of posts) {
     await client.query(
-      "INSERT INTO articles (id, title, body, tags, likes, dislikes, views, user_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)",
+      "INSERT INTO articles (id, title, body, tags, likes, dislikes, views, user_id, author_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $8)",
       [
         article.id,
         article.title,
@@ -71,7 +76,7 @@ try {
 
   for (const comment of comments) {
     await client.query(
-      "INSERT INTO comments (id, body, likes, post_id, user_id) VALUES ($1, $2, $3, $4, $5)",
+      "INSERT INTO comments (id, body, likes, post_id, user_id, author_id) VALUES ($1, $2, $3, $4, $5, $5)",
       [
         comment.id,
         comment.body,

@@ -35,7 +35,7 @@ export default async function ArticlePage({
       <h1>{article.title}</h1>
 
       <Suspense fallback={<p className="muted">Загружаем автора...</p>}>
-        <ArticleAuthor userId={article.userId} />
+        <ArticleAuthor authorId={article.authorId} />
       </Suspense>
 
       <p>{article.body}</p>

@@ -14,7 +14,7 @@ export default async function ArticleComments({ postId }: { postId: number }) {
       <ul>
         {comments.map((comment) => (
           <li key={comment.id}>
-            <strong>{comment.user.fullName}</strong>: {comment.body}
+            <strong>{comment.author.fullName}</strong>: {comment.body}
           </li>
         ))}
       </ul>
