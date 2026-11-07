@@ -9,6 +9,7 @@ export default function OpenLayout({ children }: LayoutProps<"/">) {
         <nav className={styles.nav}>
           <Link href="/">Главная</Link>
           <Link href="/articles">Статьи</Link>
+          <Link href="/about">О проекте</Link>
         </nav>
       </header>
 
