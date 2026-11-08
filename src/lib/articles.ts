@@ -7,6 +7,7 @@ import {
 import { demoDelay } from "@/lib/demoDelay";
 import type { Article } from "@/types/article";
 import type { ArticleComment } from "@/types/comment";
+import type { TagCount } from "@/types/tag";
 
 import { getPrisma } from "./prisma";
 
@@ -19,6 +20,34 @@ export async function getArticles(): Promise<Article[]> {
   const rows = await getPrisma().article.findMany({
     orderBy: { id: "asc" },
     take: 15,
+  });
+
+  return rows.map(toArticle);
+}
+
+export async function getTagCounts(selected: string[]): Promise<TagCount[]> {
+  "use cache";
+  cacheLife("hours");
+
+  const rows = await getPrisma().$queryRaw<{ tag: string; count: bigint }[]>`
+  SELECT tag, count(*) AS count
+  FROM  articles, unnest(tags) AS tag
+  WHERE articles.tags @> ${selected}::text[]
+  AND NOT (tag = ANY (${selected}::text[]))
+  GROUP BY tag
+  ORDER BY count DESC, tag
+`;
+
+  return rows.map((row) => ({ tag: row.tag, count: Number(row.count) }));
+}
+
+export async function getArticlesByTags(tags: string[]): Promise<Article[]> {
+  "use cache";
+  cacheLife("hours");
+
+  const rows = await getPrisma().article.findMany({
+    where: { tags: { hasEvery: tags } },
+    orderBy: { id: "asc" },
   });
 
   return rows.map(toArticle);
