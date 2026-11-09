@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import ArticleAuthor from "@/components/ArticleAuthor";
@@ -45,7 +46,14 @@ export default async function ArticlePage({
       </Suspense>
 
       <p className="muted">
-        Теги: {article.tags.join(", ")} · Просмотры: {article.views}
+        Теги:{" "}
+        {article.tags.map((tag, index) => (
+          <span key={tag}>
+            {index > 0 && ", "}
+            <Link href={`/tags/${tag}`}>{tag}</Link>
+          </span>
+        ))}{" "}
+        · Просмотры: {article.views}
       </p>
     </article>
   );

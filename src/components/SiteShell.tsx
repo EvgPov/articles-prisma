@@ -11,6 +11,7 @@ export default function SiteShell({ children }: { children: ReactNode }) {
         <nav className={styles.nav}>
           <Link href="/">Главная</Link>
           <Link href="/articles">Статьи</Link>
+          <Link href="/tags">Теги</Link>
           <Link href="/about">О проекте</Link>
         </nav>
       </header>
