@@ -7,6 +7,11 @@
 
 ## [Unreleased]
 
+### Changed
+
+- Версия PostgreSQL закреплена: `postgres:18.6` вместо плавающего `postgres:18`
+  в `compose.yaml` и `compose.prod.yaml`.
+
 ## [1.2.0] - 2026-11-09
 
 ### Added

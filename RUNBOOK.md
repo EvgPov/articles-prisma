@@ -11,7 +11,7 @@
 
 | Сервис    | Образ                                                   | Что делает                                       |
 | --------- | ------------------------------------------------------- | ------------------------------------------------ |
-| `db`      | `postgres:18`                                           | база; данные в volume `articles-prod_pgdata`     |
+| `db`      | `postgres:18.6`                                         | база; данные в volume `articles-prod_pgdata`     |
 | `migrate` | `ghcr.io/evgpov/articles-prisma-migrate:${RELEASE_TAG}` | применяет новые миграции и завершается с кодом 0 |
 | `app`     | `ghcr.io/evgpov/articles-prisma:${RELEASE_TAG}`         | сервер; порт хоста **3003**                      |
 
