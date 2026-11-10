@@ -23,12 +23,7 @@ export function parseArticleId(id: string): number | null {
   return Number(id);
 }
 
-export function toArticle({
-  likes,
-  dislikes,
-  userId,
-  ...rest
-}: ArticleRow): Article {
+export function toArticle({ likes, dislikes, ...rest }: ArticleRow): Article {
   return { ...rest, reactions: { likes, dislikes } };
 }
 

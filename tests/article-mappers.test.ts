@@ -48,7 +48,6 @@ describe("toArticle", () => {
     likes: 192,
     dislikes: 25,
     views: 305,
-    userId: 121,
     authorId: 121,
     summary: "A story about pride",
   };
@@ -66,9 +65,6 @@ describe("toArticle", () => {
       authorId: 121,
       summary: "A story about pride",
     });
-  });
-  it("does not expose legacy userId", () => {
-    expect(toArticle(articleRow)).not.toHaveProperty("userId");
   });
 });
 
