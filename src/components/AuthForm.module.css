@@ -1,0 +1,13 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form input {
+  width: 100%;
+  padding: 14px 18px;
+}
+.error {
+  color: #c62828;
+}
