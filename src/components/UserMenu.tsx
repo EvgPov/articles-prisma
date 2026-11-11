@@ -4,8 +4,9 @@ import { getAuth } from "@/lib/auth";
 import SignOutButton from "./SignOutButton";
 
 export default async function UserMenu() {
+  const requestHeaders = await headers();
   const session = await getAuth().api.getSession({
-    headers: await headers(),
+    headers: requestHeaders,
   });
 
   if (!session) {
