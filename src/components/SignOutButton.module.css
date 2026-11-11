@@ -1,0 +1,12 @@
+.button {
+  font: inherit;
+  color: var(--link);
+  background: none;
+  border: none;
+  padding: 0;
+  text-decoration: none;
+}
+.button:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
