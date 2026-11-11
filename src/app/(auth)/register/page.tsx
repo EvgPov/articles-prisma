@@ -12,7 +12,9 @@ export default function RegisterPage() {
     <>
       <h1>Регистрация</h1>
       <RegisterForm />
-      <Link href="/login">Уже есть аккаунт? Войти</Link>
+      <p>
+        Уже есть аккаунт? <Link href="/login">Войти</Link>
+      </p>
     </>
   );
 }

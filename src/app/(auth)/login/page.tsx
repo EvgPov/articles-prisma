@@ -12,7 +12,9 @@ export default function LoginPage() {
     <>
       <h1>Вход</h1>
       <LoginForm />
-      <Link href="/register">Нет аккаунта? Зарегистрироваться</Link>
+      <p>
+        Нет аккаунта? <Link href="/register">Зарегистрироваться</Link>
+      </p>
     </>
   );
 }
