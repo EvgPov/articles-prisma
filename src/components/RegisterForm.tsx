@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { authClient } from "@/lib/auth-client";
+import { authErrorMessage } from "@/lib/auth-errors";
 import styles from "./AuthForm.module.css";
 
 export default function RegisterForm() {
@@ -24,7 +25,7 @@ export default function RegisterForm() {
 
     setPending(false);
     if (error) {
-      setError(error.message ?? "Не удалось зарегистрироваться");
+      setError(authErrorMessage(error.code));
       return;
     }
     router.push("/");
