@@ -28,7 +28,7 @@ export default function RegisterForm() {
       setError(authErrorMessage(error.code));
       return;
     }
-    router.push("/");
+    router.replace("/");
   }
 
   return (
