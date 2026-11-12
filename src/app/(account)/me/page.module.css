@@ -3,3 +3,12 @@
   grid-template-columns: max-content 1fr;
   gap: 20px;
 }
+.form_section {
+  margin-top: 80px;
+  border-top: 1px solid var(--border);
+}
+.hint {
+  display: block;
+  font-size: 0.9em;
+  color: var(--muted);
+}

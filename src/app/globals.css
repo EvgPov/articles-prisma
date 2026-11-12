@@ -3,6 +3,7 @@
   --foreground: #171717;
   --muted: #666666;
   --border: #e5e5e5;
+  --success: #1a7f37;
   --card: #f7f7f8;
   --link: #0b62d6;
 }
@@ -59,6 +60,10 @@ a:hover {
 
 .muted {
   color: var(--muted);
+}
+
+.seccess {
+  color: var(--success);
 }
 
 a:focus-visible,

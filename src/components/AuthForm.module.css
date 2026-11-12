@@ -8,6 +8,11 @@
   width: 100%;
   padding: 14px 18px;
 }
+
 .error {
   color: #c62828;
+}
+
+.form label {
+  font-weight: 600;
 }
