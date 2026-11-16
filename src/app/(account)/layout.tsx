@@ -15,7 +15,7 @@ export default function AccountLayout({ children }: LayoutProps<"/">) {
               <Link href="/me/password">Смена пароля</Link>
             </li>
             <li>
-              <Link href="/me/sessions">Активные входы</Link>
+              <Link href="/me/reading-list">Прочитать позже</Link>
             </li>
           </ul>
         </nav>
