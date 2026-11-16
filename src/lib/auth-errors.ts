@@ -6,6 +6,7 @@ const MESSAGES: Record<string, string> = {
   INVALID_EMAIL_OR_PASSWORD: "Неверная почта или пароль",
   PASSWORD_TOO_SHORT: "Пароль слишком короткий: нужно не меньше 8 символов",
   INVALID_EMAIL: "Некорректный адрес почты",
+  INVALID_PASSWORD: "Текущий пароль введён неверно",
 };
 
 export function authErrorMessage(code: string | undefined) {

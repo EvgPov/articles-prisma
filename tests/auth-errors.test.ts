@@ -15,6 +15,7 @@ describe("authErrorMessage", () => {
       "Пароль слишком короткий: нужно не меньше 8 символов",
     ],
     ["INVALID_EMAIL", "Некорректный адрес почты"],
+    ["INVALID_PASSWORD", "Текущий пароль введён неверно"],
   ])("map %j to %j", (input, expected) => {
     expect(authErrorMessage(input)).toBe(expected);
   });
