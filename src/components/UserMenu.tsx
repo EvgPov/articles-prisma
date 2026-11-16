@@ -15,7 +15,7 @@ export default async function UserMenu() {
 
   return (
     <>
-      <span>{session.user.name}</span>
+      <Link href="/me">{session.user.name}</Link>
       <SignOutButton />
     </>
   );
