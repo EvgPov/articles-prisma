@@ -7,16 +7,37 @@
 
 ## [Unreleased]
 
+## [1.3.0] - 2026-11-17
+
+### Added
+
+- Регистрация и вход по почте и паролю (Better Auth): страницы `/register`
+  и `/login`, сообщения об ошибках на русском.
+- В шапке: «Войти» для гостей; для вошедших — имя (ссылка в профиль) и «Выйти».
+- Личный кабинет — группа маршрутов `(account)` с боковым меню. Открывается
+  только после входа, иначе — переход на `/login`:
+  - `/me` — имя, почта, дата регистрации и смена имени;
+  - `/me/password` — смена пароля; входы на других устройствах при этом завершаются;
+  - `/me/reading-list` — раздел «Прочитать позже», пока пустой.
+- Миграция `20261110151931_add_auth_tables`: таблицы `users`, `sessions`,
+  `accounts`, `verifications` для Better Auth. Только создаёт таблицы.
+- Переменные окружения `BETTER_AUTH_SECRET` (обязательная, не короче
+  32 символов) и `BETTER_AUTH_URL`. **Перед выкатом добавить
+  `BETTER_AUTH_SECRET` в `.env`**, иначе Compose не запустит стек.
+
 ### Changed
 
 - Версия PostgreSQL закреплена: `postgres:18.6` вместо плавающего `postgres:18`
   в `compose.yaml` и `compose.prod.yaml`.
+- Одинаковая рамка фокуса у ссылок и кнопок; поля ввода и кнопки
+  используют шрифт сайта.
 
 ### Removed
 
-- Миграция `20261110115020_drop_legacy_users` удаляет таблицу `users` и колонки `user_id` в `articles` и `comments` (объявлены устаревшими в 1.2.0).
+- Миграция `20261110115020_drop_legacy_users` удаляет старую таблицу `users`
+  и колонки `user_id` в `articles` и `comments` (объявлены устаревшими в 1.2.0).
   **После неё откат возможен только до 1.2.0**: версии 1.1.0 и 1.0.0
-  читают `users` и на новой схеме не запустятся.
+  читают старую `users` и на новой схеме не запустятся.
 
 ## [1.2.0] - 2026-11-09
 
@@ -99,7 +120,8 @@
 - `db/schema.sql`: схему создают миграции.
 - Неиспользуемые изображения из шаблона create-next-app.
 
-[Unreleased]: https://github.com/EvgPov/articles-prisma/compare/v1.2.0...HEAD
+[Unreleased]: https://github.com/EvgPov/articles-prisma/compare/v1.3.0...HEAD
+[1.3.0]: https://github.com/EvgPov/articles-prisma/compare/v1.2.0...v1.3.0
 [1.2.0]: https://github.com/EvgPov/articles-prisma/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/EvgPov/articles-prisma/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/EvgPov/articles-prisma/releases/tag/v1.0.0
