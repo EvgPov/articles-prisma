@@ -7,7 +7,14 @@
 
 ## [Unreleased]
 
-## [1.3.0] - 2026-11-17
+## [1.3.1] - 2026-11-17
+
+### Fixed
+
+- После входа и регистрации шапка показывала «Войти» вместо имени,
+  пока страницу не обновят вручную: браузер брал её из кэша роутера.
+
+## [1.3.0] - 2026-11-16
 
 ### Added
 
@@ -120,7 +127,8 @@
 - `db/schema.sql`: схему создают миграции.
 - Неиспользуемые изображения из шаблона create-next-app.
 
-[Unreleased]: https://github.com/EvgPov/articles-prisma/compare/v1.3.0...HEAD
+[Unreleased]: https://github.com/EvgPov/articles-prisma/compare/v1.3.1...HEAD
+[1.3.1]: https://github.com/EvgPov/articles-prisma/compare/v1.3.0...v1.3.1
 [1.3.0]: https://github.com/EvgPov/articles-prisma/compare/v1.2.0...v1.3.0
 [1.2.0]: https://github.com/EvgPov/articles-prisma/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/EvgPov/articles-prisma/compare/v1.0.0...v1.1.0
