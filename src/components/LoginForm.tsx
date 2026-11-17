@@ -28,6 +28,7 @@ export default function LoginForm() {
       return;
     }
     router.replace("/");
+    router.refresh();
   }
 
   return (

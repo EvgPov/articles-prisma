@@ -29,6 +29,7 @@ export default function RegisterForm() {
       return;
     }
     router.replace("/");
+    router.refresh();
   }
 
   return (
