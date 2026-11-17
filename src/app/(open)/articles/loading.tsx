@@ -1,3 +1,3 @@
-export default function Loadung() {
-  return <p className="muted">Загрузка статей...</p>;
+export default function Loading() {
+  return <p className="muted">Загрузка статей…</p>;
 }
