@@ -25,3 +25,10 @@ export function addEntry(
   if (isDuplicate) return list;
   return [...list, createEntry(article)];
 }
+
+export function removeEntry(
+  list: ReadingEntry[],
+  articleId: number,
+): ReadingEntry[] {
+  return list.filter((entry) => entry.articleId !== articleId);
+}

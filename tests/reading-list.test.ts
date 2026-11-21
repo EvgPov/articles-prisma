@@ -1,5 +1,10 @@
 import { describe, expect, it } from "vitest";
-import { createEntry, toggleRead, addEntry } from "@/lib/reading-list";
+import {
+  createEntry,
+  toggleRead,
+  addEntry,
+  removeEntry,
+} from "@/lib/reading-list";
 
 const list = [
   { articleId: 6, title: "Ромео и Джульетта", read: false },
@@ -101,6 +106,34 @@ describe("addEntry", () => {
     const before = structuredClone(list);
 
     const result = addEntry(list, newArticle);
+
+    expect(result).not.toBe(list);
+    expect(list).toEqual(before);
+  });
+});
+
+describe("removeEntry", () => {
+  it("removes an entry from the list", () => {
+    const result = removeEntry(list, 13);
+
+    expect(result).toEqual([
+      { articleId: 6, title: "Ромео и Джульетта", read: false },
+      { articleId: 10, title: "Война и мир", read: true },
+      { articleId: 25, title: "Преступление и наказание", read: true },
+      { articleId: 50, title: "Тарас Бульба", read: true },
+    ]);
+  });
+
+  it("keps the list as is when articleId is not in it", () => {
+    const result = removeEntry(list, 35);
+
+    expect(result).toEqual(list);
+  });
+
+  it("does not change the original list", () => {
+    const before = structuredClone(list);
+
+    const result = removeEntry(list, 6);
 
     expect(result).not.toBe(list);
     expect(list).toEqual(before);
