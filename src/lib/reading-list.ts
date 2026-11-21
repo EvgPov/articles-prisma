@@ -11,3 +11,7 @@ export function createEntry(article: ArticleRef): ReadingEntry {
     read: false,
   };
 }
+
+export function toggleRead(entry: ReadingEntry): ReadingEntry {
+  return { ...entry, read: !entry.read };
+}
