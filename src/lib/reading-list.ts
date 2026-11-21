@@ -15,3 +15,13 @@ export function createEntry(article: ArticleRef): ReadingEntry {
 export function toggleRead(entry: ReadingEntry): ReadingEntry {
   return { ...entry, read: !entry.read };
 }
+
+export function addEntry(
+  list: ReadingEntry[],
+  article: ArticleRef,
+): ReadingEntry[] {
+  const isDuplicate = list.some((entry) => entry.articleId === article.id);
+
+  if (isDuplicate) return list;
+  return [...list, createEntry(article)];
+}

@@ -1,5 +1,13 @@
 import { describe, expect, it } from "vitest";
-import { createEntry, toggleRead } from "@/lib/reading-list";
+import { createEntry, toggleRead, addEntry } from "@/lib/reading-list";
+
+const list = [
+  { articleId: 6, title: "Ромео и Джульетта", read: false },
+  { articleId: 10, title: "Война и мир", read: true },
+  { articleId: 13, title: "Братья Карамазовы", read: false },
+  { articleId: 25, title: "Преступление и наказание", read: true },
+  { articleId: 50, title: "Тарас Бульба", read: true },
+];
 
 describe("createEntry", () => {
   const article = {
@@ -61,5 +69,40 @@ describe("toggleRead", () => {
 
     expect(result).not.toBe(entry);
     expect(entry).toEqual(before);
+  });
+});
+
+describe("addEntry", () => {
+  const newArticle = {
+    id: 2,
+    title: "Капитанская дочка",
+  };
+  const duplicateArticle = {
+    id: 25,
+    title: "Гамлет",
+  };
+
+  it("adds a new entry at the end of the list", () => {
+    const result = addEntry(list, newArticle);
+
+    expect(result).toEqual([
+      ...list,
+      { articleId: 2, title: "Капитанская дочка", read: false },
+    ]);
+  });
+
+  it("does not add an article that is already in the list", () => {
+    const result = addEntry(list, duplicateArticle);
+
+    expect(result).toEqual(list);
+  });
+
+  it("does not change the original list", () => {
+    const before = structuredClone(list);
+
+    const result = addEntry(list, newArticle);
+
+    expect(result).not.toBe(list);
+    expect(list).toEqual(before);
   });
 });
