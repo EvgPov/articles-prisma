@@ -32,3 +32,10 @@ export function removeEntry(
 ): ReadingEntry[] {
   return list.filter((entry) => entry.articleId !== articleId);
 }
+
+export function findEntry(
+  list: ReadingEntry[],
+  articleId: number,
+): ReadingEntry | undefined {
+  return list.find((entry) => entry.articleId === articleId);
+}

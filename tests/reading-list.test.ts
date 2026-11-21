@@ -4,6 +4,7 @@ import {
   toggleRead,
   addEntry,
   removeEntry,
+  findEntry,
 } from "@/lib/reading-list";
 
 const list = [
@@ -139,3 +140,18 @@ describe("removeEntry", () => {
     expect(list).toEqual(before);
   });
 });
+
+describe("findEntry", () => {
+  it("finds an entry in the list", () => {
+    const result = findEntry(list, 10);
+
+    expect(result).toEqual({ articleId: 10, title: "Война и мир", read: true });
+  });
+
+  it("returns undefined when articleId is not in the list", () => {
+    const result = findEntry(list, 35);
+
+    expect(result).toBeUndefined();
+  });
+});
+gi;
