@@ -39,3 +39,7 @@ export function findEntry(
 ): ReadingEntry | undefined {
   return list.find((entry) => entry.articleId === articleId);
 }
+
+export function countUnread(list: ReadingEntry[]): number {
+  return list.filter((entry) => !entry.read).length;
+}

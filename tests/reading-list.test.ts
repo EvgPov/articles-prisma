@@ -1,10 +1,11 @@
 import { describe, expect, it } from "vitest";
 import {
-  createEntry,
-  toggleRead,
   addEntry,
-  removeEntry,
+  countUnread,
+  createEntry,
   findEntry,
+  removeEntry,
+  toggleRead,
 } from "@/lib/reading-list";
 
 const list = [
@@ -154,4 +155,17 @@ describe("findEntry", () => {
     expect(result).toBeUndefined();
   });
 });
-gi;
+
+describe("countUnread", () => {
+  it("returns count of unread entries in the list", () => {
+    const result = countUnread(list);
+
+    expect(result).toBe(2);
+  });
+
+  it("returns zero when the list is empty", () => {
+    const result = countUnread([]);
+
+    expect(result).toBe(0);
+  });
+});
